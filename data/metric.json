@@ -1,0 +1,47 @@
+{
+    "accuracy": {
+        "anjuran": 0.8585714285714285,
+        "larangan": 0.9428571428571428,
+        "informasi": 0.9028571428571428,
+        "overall": 0.7692857142857142
+    },
+    "hamming_loss": 0.09857142857142857,
+    "f1": {
+        "micro": 0.8731617647058824,
+        "macro": 0.677242711051104,
+        "weighted": 0.8449865151245585
+    },
+    "classification_report": "              precision    recall  f1-score   support\n\n     anjuran       0.66      0.23      0.34       223\n    larangan       0.91      0.62      0.74       182\n   informasi       0.90      1.00      0.95      1262\n\n   micro avg       0.89      0.85      0.87      1667\n   macro avg       0.82      0.62      0.68      1667\nweighted avg       0.87      0.85      0.84      1667\n samples avg       0.91      0.89      0.89      1667\n",
+    "confusion_matrix": [
+        [
+            [
+                1150,
+                27
+            ],
+            [
+                171,
+                52
+            ]
+        ],
+        [
+            [
+                1207,
+                11
+            ],
+            [
+                69,
+                113
+            ]
+        ],
+        [
+            [
+                4,
+                134
+            ],
+            [
+                2,
+                1260
+            ]
+        ]
+    ]
+}
