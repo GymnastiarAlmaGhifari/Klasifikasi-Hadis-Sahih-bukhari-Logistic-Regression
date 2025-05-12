@@ -1,0 +1,152 @@
+﻿text_raw,label,actual,pred_l2,pred_no_reg,which_correct
+"membuang daging keledai jinak baik yang masih mentah maupun matang, dan setelah itu beliau tidak memerintahkan kami untuk menyantapnya.",larangan,Positif,Negatif,Positif,No Reg
+Laksanakanlah shaum tiga hari atau bershadaqah sebanyak faraq (tiga sha') terhadap enam orang atau berqurban dengan yang mudah buatmu.,anjuran,Positif,Negatif,Positif,No Reg
+"Apakah kamu tidak tahu bahwa itu adalah ruqyah? Dan kalian telah mendapatkan imbalan darinya, maka bagilah dan berilah bagian untukku.",anjuran,Negatif,Negatif,Positif,L2
+"Makanlah daging kurban selama tiga hari. Sementara Abdullah makan daging kurban tersebut dengan minyak, ketika dia kembali dari Mina.",larangan,Positif,Negatif,Positif,No Reg
+Rasulullah memerintahkan aku agar menyedekahkan apa yang ada diatas punggung unta (pelana) yang kami sembelih begitu juga kulitnya.,anjuran,Positif,Negatif,Positif,No Reg
+"Apabila seorang wanita bermalam sementara ia tidak memenuhi ajakan suaminya di tempat tidur, maka Malaikat melaknatnya hingga pagi.",larangan,Positif,Negatif,Positif,No Reg
+"Biarkanlah dia, dan guyurlah air kencingnya dengan seember air, hanyasanya kalian diutus untuk memudahkan bukan untuk mempersulit.",anjuran,Negatif,Negatif,Positif,L2
+"di hari 'Asyura, siapa yang terlanjur makan hendaklah menyempurnakan sisa harinya, dan siapa yang belum makan hendaklah berpuasa.",informasi,Positif,Positif,Negatif,L2
+Nabi telah melarang memakan dua butir kurma sekaligus kecuali bila seorang dari kalian meminta idzin saudaranya terlebih dahulu.,informasi,Negatif,Positif,Negatif,No Reg
+selamanya syetan tidak akan bertemu denganmu di satu jalan yang kamu lewati melainkan syetan akan melewati jalan selain jalanmu.,anjuran,Negatif,Negatif,Positif,L2
+"Celaka kamu wahai Anjsyah, hati-hatilah kamu jika mengawal sesuatu yang mudah pecah (maksudnya adalah wanita karena lemahnya).",anjuran,Negatif,Negatif,Positif,L2
+"Khamr itu terbuat dari lima jenis, yaitu dari kismis, tamr (kurma kering), hinthah (biji gandum), tepung, dan (perasan) madu.",larangan,Positif,Negatif,Positif,No Reg
+Siapa yang menjual pohon kurma yang telah dikawinkan maka buahnya nanti menjadi hak penjual kecuali disyaratkan oleh pembeli.,larangan,Negatif,Negatif,Positif,L2
+Siapa yang menjual pohon kurma yang telah dikawinkan maka buahnya nanti menjadi hak penjual kecuali disyaratkan oleh pembeli.,larangan,Negatif,Negatif,Positif,L2
+Berilah nama dengan namaku tapi jangan memberi julukan dengan julukan aku karena aku adalah Qasim (orang yang membagi-bagi) .,anjuran,Positif,Negatif,Positif,No Reg
+Berilah nama dengan namaku tapi jangan memberi julukan dengan julukan aku karena aku adalah Qasim (orang yang membagi-bagi) .,larangan,Positif,Negatif,Positif,No Reg
+Rasulullah melarang orang kota menjual untuk orang desa: Hadits ini telah dikomentari oleh Ibnu 'Abbas Radhiyallahu'anhuma.,informasi,Negatif,Positif,Negatif,No Reg
+"Barangsiapa di pagi hari makan tujuh buah kurma 'ajwah, maka pada hari itu racun dan sihir tidak akan membahayakan dirinya.",anjuran,Positif,Negatif,Positif,No Reg
+"(Sunah) fitrah itu ada lima, yaitu; khitan, mencukur bulu kemaluan, mencabut bulu ketiak, mencukur kumis dan memotong kuku.",anjuran,Positif,Negatif,Positif,No Reg
+"pernah memukul peminum khamar dengan pelepah kurma dan sandal, dan Abu Bakar pernah mencambuknya sebanyak empat puluh kali.",anjuran,Negatif,Negatif,Positif,L2
+"nabi memberi instruksi (agar mereka dirajam), dan akhirnya keduanya pun dirajam dekat tempat meletakkan jenazah di masjid.",anjuran,Negatif,Negatif,Positif,L2
+"Aku tinggalkan dalam rumah sebatang emas dari harta shadaqah. Aku tidak mau bila sampai bermalam, maka aku bagi-bagikan.",anjuran,Negatif,Negatif,Positif,L2
+Apabila datang bulan Ramadlan pintu-pintu surga dibuka sedang pintu-pintu neraka ditutup dan syaitan-syaitan dibelenggu.,anjuran,Negatif,Negatif,Positif,L2
+"Tidak dosa. Orang itu berkata, lagi: Aku mencukur rambut sebelum menyembelih hewan qurban. Beliau bersabda: Tidak dosa.",anjuran,Negatif,Negatif,Positif,L2
+Bilal Radhiyallahu'anhu diperintahkan untuk mengumandangkan adzan dengan pengulangan dua kali dan iqamat secara ganjil.,anjuran,Negatif,Negatif,Positif,L2
+"Kiranya rahmat Allah selalu tercurah kepada Musa yang ia disakiti lebih banyak daripada ini, namun ia lantas bersabar.",anjuran,Negatif,Negatif,Positif,L2
+Seorang mukmin masih dalam kelonggaran agamanya selama dia tidak menumpahkan darah haram tanpa alasan yang dihalalkan.,larangan,Negatif,Negatif,Positif,L2
+"bulan terbelah menjadi dua bagian. Sebagian di atas bulan, sebagian lagi dibawahnya. Maka Nabi bersabda: Saksikanlah!",anjuran,Negatif,Negatif,Positif,L2
+Berhati-hatilah kamu terhadap do'anya orang yang dizhalimi karena antara do'anya dan Allah tidak ada penghalangnya,anjuran,Negatif,Negatif,Positif,L2
+"Bershadaqalah dan jangan kamu tutup rapat guci tempat menyimpan makanan itu, karena nanti Allah menutup rezekimu.",informasi,Negatif,Positif,Negatif,No Reg
+"Tatkala turun ayat yang mengharamkan khamr, pada waktu itu di Madinah ada lima gelas yang berisi minuman anggur.",larangan,Positif,Negatif,Positif,No Reg
+Mimpi baik yang berasal dari seorang yang shalih adalah satu bagian dari enam atau empat puluh bagian kenabian.,anjuran,Negatif,Negatif,Positif,L2
+Ada dua bulan yang tidak akan kurang dalam bulan (sama bilangan harinya) yaitu bulan Ramadhan dan Dzul Hijjah.,anjuran,Negatif,Negatif,Positif,L2
+"Pada anak lelaki ada kewajiban 'akikah, maka potongkanlah hewan sebagai akikah dan buanglah keburukan darinya.",anjuran,Positif,Negatif,Positif,No Reg
+wajib membayar fidyah dengan memberi maka kepada orang miskin'. Ibnu Umar berkata; Ayat ini telah dimanshukh.',anjuran,Positif,Negatif,Positif,No Reg
+Para shahabat-shahabatku belajar dari perkara-perkara kebaikan sedangkan aku belajar dari perkara yang buruk.,anjuran,Negatif,Negatif,Positif,L2
+"Kalaulah Rasulullah Shallallahu'alaihiwasallam tidak melarang kami memohon kematian, niscaya aku memohonnya.'",larangan,Positif,Negatif,Positif,No Reg
+Allah merahmati orang yang memudahkan ketika menjual dan ketika membeli dan juga orang yang meminta haknya.,anjuran,Negatif,Negatif,Positif,L2
+Penyakit 'ain (yang disebabkan oleh sorotan mata yang dengki) adalah haq (benar). Dan beliau melarang tato.,anjuran,Negatif,Negatif,Positif,L2
+"barangsiapa yang ingin berpuasa Asyura' hendaklah ia berpuasa, dan bagi yang tidak ingin, maka berbukalah.",informasi,Positif,Positif,Negatif,L2
+Nabi melarang dari menambahkan harga barang dagangan yang mengandung unsur penipuan terhadap orang lain.,informasi,Negatif,Positif,Negatif,No Reg
+Panggillah dengan menyebut namaku dan jangan memanggil dengan nama kuniyahku (panggilan atau julukan) .,larangan,Positif,Negatif,Positif,No Reg
+Panggillah dengan menyebut namaku dan jangan memanggil dengan nama kuniyahku (panggilan atau julukan) .,larangan,Positif,Negatif,Positif,No Reg
+"Barangsiapa yang bersumpah hendaklah dia bersumpah atas nama Allah atau kalau tidak, lebih baik diam.",larangan,Negatif,Negatif,Positif,L2
+"sesungguhnya surat Al-Qur'an ini diturunkan dengan tujuh dialek, maka bacalah apa yang mudah bagimu'.",anjuran,Positif,Negatif,Positif,No Reg
+"tiadalah kamu melainkan seujung jari yang berdarah, dan di jalan Allah ada sesuatu yang kamu peroleh",anjuran,Negatif,Negatif,Positif,L2
+Rasulullah shallallahu ˜alaihi wasallam melarang bepergian dengan membawa Al Qur'an ke negeri musuh,larangan,Positif,Negatif,Positif,No Reg
+"Kiranya Allah merahmati Musa, yang ia disakiti lebih banyak daripada ini semua, lantas ia bersabar.",anjuran,Negatif,Negatif,Positif,L2
+"Semoga Allah merahmati Musa, karena dia disakiti lebih banyak dari ini namun dia tetap bersabar'.",anjuran,Negatif,Negatif,Positif,L2
+Jika kamu telah mengerjakan witir di awal (malam) janganlah kamu kerjakan lagi di akhir (malam).,informasi,Positif,Positif,Negatif,L2
+Perwalian menjadi milik orang yang membebaskannya sekalipun mereka membuat seratus persyaratan.,anjuran,Negatif,Negatif,Positif,L2
+barangsiapa yang mati tidak menyekutukan Allah dengan suatu apapun maka dia pasti masuk surga.,larangan,Negatif,Negatif,Positif,L2
+"Termasuk sunnah-sunnah fitrah adalah mencukur bulu kemaluan, memotong kuku dan mencukur kumis.",anjuran,Positif,Negatif,Positif,No Reg
+"Semoga Allah merahmati Musa, sungguh dia lebih banyak disakiti daripada ini lalu dia bersabar.",anjuran,Negatif,Negatif,Positif,L2
+Janganlah kalian meninggalkan api (dalam keadaan menyala) di rumah kalian ketika kalian tidur.,anjuran,Negatif,Positif,Negatif,No Reg
+Diantara hak unta adalah memberi minum susu untuk orang-orang miskin (zakat bagi pemiliknya).,anjuran,Negatif,Negatif,Positif,L2
+"barangsiapa beriman kepada Allah dan hari akhir, hendaknya dia berkata dengan baik atau diam.",larangan,Negatif,Negatif,Positif,L2
+"Wahai Anjasy, pelan-pelanlah kamu kalau mengawal sesuatu yang mudah pecah (maksudnya wanita).",anjuran,Positif,Negatif,Positif,No Reg
+"Jika anak ini hidup, niscaya belum ia lanjut usia, hingga telah kalian temui kematian kalian.",anjuran,Negatif,Negatif,Positif,L2
+Ular itu telah lolos dari kejahatan kalian sebagaimana kalian sudah lolos dari kejahatannya.,anjuran,Negatif,Negatif,Positif,L2
+"barangsiapa mengatakan: Aku lebih baik dari Yunus bin Mata, maka sungguh dia telah berdusta.",larangan,Negatif,Negatif,Positif,L2
+"Dosa besar ialah menyekutukan Allah, durhaka kepada orangtua, membunuh, dan bersumpah palsu.",larangan,Positif,Negatif,Positif,No Reg
+"Janganlah kalian mengatakan yang demikian, janganlah kalian membantu setan memperdayakannya!",informasi,Positif,Positif,Negatif,L2
+Nabi memerintahkan aku agar memboncengkan 'Aisyah untuk melaksanakan 'umrah dari at-Tan'im.,anjuran,Negatif,Negatif,Positif,L2
+Nabi melarang untuk memakan daging keledai dan memberi keringanan untuk makan daging kuda.,informasi,Negatif,Positif,Negatif,No Reg
+"Buanglah tikus itu dan sesuatu yang ada disekitarnya, lalu makanlah minyak samin tersebut.",informasi,Negatif,Positif,Negatif,No Reg
+Terjadi gerhana pada hari meninggalnya Ibrahim. Di riwayatkan oleh Abu Bakarah dari Nabi .,anjuran,Negatif,Negatif,Positif,L2
+Nabi melarang kami mengenakan tirai yang terbuat dari sutera dan Qasiy (sutera campuran).,larangan,Positif,Negatif,Positif,No Reg
+Apakah engkau bisa mendatangkan manfaat untuk pamanmu Abu Thalib sekalipun paling ringan?,anjuran,Negatif,Negatif,Positif,L2
+Janganlah seagian dari kalian membeli apa yang dibeli (sedang ditawar) oleh saudaranya.,informasi,Negatif,Positif,Negatif,No Reg
+Aku berasal dari Rama Hurmuz (kota di Persia/Iran berbatasan dengan 'Iraq sekarang) .,anjuran,Negatif,Negatif,Positif,L2
+memerintahkan kami supaya meruqyah orang yang terkena penyakit 'ain (gangguan sihir).,anjuran,Positif,Negatif,Positif,No Reg
+lantas ia diperintahkan untuk menutup mata panahnya agar tidak melukai kaum muslimin.,anjuran,Negatif,Negatif,Positif,L2
+"berkurban dengan dua ekor domba, sementara aku juga berkurban dengan dua ekor domba.",informasi,Negatif,Positif,Negatif,No Reg
+Tidak layak bagi seorang pun untuk mengatakan saya lebih baik dari Yunus bin Matta.,larangan,Negatif,Negatif,Positif,L2
+"tidak masalah kau memberi makanan untuk mereka, asalkan dengan ma'ruf (cara wajar).",anjuran,Negatif,Negatif,Positif,L2
+karena orang yang benar berhak memperoleh tempat untuk menyampaikan kebenarannya .,anjuran,Negatif,Negatif,Positif,L2
+Musalliman (menerima) tanpa diragukan lagi. Demikian juga makna pada asal katanya.,anjuran,Negatif,Negatif,Positif,L2
+"Lihatlah siapakah saudara-saudara sesusuan kalian, karena susuan itu karena lapar.",informasi,Positif,Positif,Negatif,L2
+Nabi telah melarang menjadikan bintang untuk dijadikan sasaran (latihan) tembak.,larangan,Positif,Negatif,Positif,No Reg
+"Nabi melarang untuk memakan hasil keuntungan dari anjing, dan dukun dan pelacur.",larangan,Positif,Negatif,Positif,No Reg
+"Jangan kalian mengharapkan bertemu musuh, dan mintalah keselamatan kepada Allah.",anjuran,Positif,Negatif,Positif,No Reg
+Siapa yang mau melaksanakannya silakan dan siapa yang tidak mau juga tidak apa.,informasi,Positif,Positif,Negatif,L2
+Bahwa Nabi Allah Daud AS tidak memakan makanan kecuali hasil usahanya sendiri.,anjuran,Positif,Negatif,Positif,No Reg
+Sungguh Musa juga pernah disakiti lebih daripada ini namun dia tetap bersabar.,anjuran,Negatif,Negatif,Positif,L2
+Demam berasal dari hembusan nerakan Jahannam maka dinginkanlah ia dengan air.,anjuran,Positif,Negatif,Positif,No Reg
+Demam berasal dari hembusan nerakan Jahannam maka dinginkanlah ia dengan air.,anjuran,Positif,Negatif,Positif,No Reg
+Nabi Shallallahu 'alaihi wa Salam memerintahkan kami untuk menunaikan sumpah.,anjuran,Positif,Negatif,Positif,No Reg
+"Tidak, namun sebaik-baik jihad bagi kalian (para wanita) adalah haji mabrur.",anjuran,Negatif,Negatif,Positif,L2
+"Singkirkanlah ia dariku, karena gambarnya selalu memalingkanku dalam shalat.",anjuran,Negatif,Negatif,Positif,L2
+Rasulullah telah melarang jual beli emas dengan uang kertas sebagai hutang.,informasi,Positif,Positif,Negatif,L2
+Janganlah kalian menjadi penolong setan untuk menjerumuskan kawan kalian!.,anjuran,Negatif,Positif,Negatif,No Reg
+melarang libsatain dan dua cara jual beli yaitu mulamasah dan munabadzah.,informasi,Positif,Positif,Negatif,L2
+"Kalaulah tidak memberatkan umatku, niscaya kuperintahkan mereka bersiwak.",anjuran,Positif,Negatif,Positif,No Reg
+Jagalah kalian dari neraka sekalipun dengan (bershadaqah) sebutir kurma.,anjuran,Positif,Negatif,Positif,No Reg
+Persaksian orang-orang beriman adalah saksi-saksinya Allah di muka bumi.,larangan,Negatif,Negatif,Positif,L2
+Shalatlah dua Raka'at. Dan Shirar adalah nama di ujung (timur) Madinah.,anjuran,Positif,Negatif,Positif,No Reg
+Sumpah itu melariskan dagangan jual beli namun menghilangkan barakah.,larangan,Positif,Negatif,Positif,No Reg
+Jauhilah hal-hal yang membinasakan yaitu menyekutukan Allah dan sihr.,larangan,Positif,Negatif,Positif,No Reg
+Kalian telah binasa-atau: Kalian telah memutuskan punggung seseorang.,larangan,Negatif,Negatif,Positif,L2
+"Jika kamu jual-beli, katakan; 'Namun dengan syarat tak ada penipuan'.",anjuran,Positif,Negatif,Positif,No Reg
+Tolonglah saudaramu yang berbuat zhalim (aniaya) dan yang dizhalimi.,anjuran,Positif,Negatif,Positif,No Reg
+"Kalian lebih berhak terhadap Musa daripada mereka, maka berpuasalah.",larangan,Negatif,Negatif,Positif,L2
+"Wahai Ibnu Adam berinfaklah, niscaya kalian juga akan diberi rezeki.",anjuran,Negatif,Negatif,Positif,L2
+"Kami tidak diwarisi, dan semua yang kami tinggalkan adalah sedekah?.",anjuran,Negatif,Negatif,Positif,L2
+"Jika kamu berjual beli katakanlah Maaf, namun jangan ada penipuan.",anjuran,Positif,Negatif,Positif,No Reg
+"Jika kamu berjual beli katakanlah Maaf, namun jangan ada penipuan.",informasi,Negatif,Positif,Negatif,No Reg
+sepersusuan itu melarang segala hal yang terlarang karena serahim.,informasi,Positif,Positif,Negatif,L2
+"Lepaskanlah tawanan, penuhilah undangan dan jenguklah orang sakit.",anjuran,Positif,Negatif,Positif,No Reg
+"Kita lebih berhak atas Musa dari mereka, maka berpuasalah kalian.",larangan,Negatif,Negatif,Positif,L2
+Rasulullah melarang seseorang minum langsung dari mulut geribah.,informasi,Negatif,Positif,Negatif,No Reg
+Jangan kamu beli dan jangan pula kamu minta kembali shadaqahmu.,informasi,Negatif,Positif,Negatif,No Reg
+Jangan kamu beli dan jangan kamu mengambil kembali shadaqahmu.,informasi,Negatif,Positif,Negatif,No Reg
+Rasulullah melarang makan setiap binatang buas yang bertaring.,informasi,Positif,Positif,Negatif,L2
+Menunda pembayaran hutang bagi orang kaya adalah kezhaliman.,anjuran,Negatif,Negatif,Positif,L2
+Menunda pembayaran hutang bagi orang kaya adalah kezhaliman.,informasi,Positif,Positif,Negatif,L2
+Nabi melarang seseorang minum langsung dari mulut geribah.,informasi,Negatif,Positif,Negatif,No Reg
+"Sengaja kami simpan buatmu, sengaja kami simpan buatmmu.",informasi,Positif,Positif,Negatif,L2
+melarang makan daging keledai jinak pada perang Khaibar.,informasi,Positif,Positif,Negatif,L2
+Pelan-pelanlah wahai Anjasyah jika mengawal para wanita.,anjuran,Positif,Negatif,Positif,No Reg
+"Berinfaklah engkau, niscya aku memberi infak kepadamu.",anjuran,Positif,Negatif,Positif,No Reg
+Telah diharamkan perdagangan khamar (minuman keras) .,larangan,Positif,Negatif,Positif,No Reg
+Janganlah kalian tinggalkan untuknya satu dirhampun.,informasi,Negatif,Positif,Negatif,No Reg
+Termasuk dari (sunnah) fitrah adalah mencukur kumis.,anjuran,Positif,Negatif,Positif,No Reg
+Bahwasanya beliau melarang dari perbuatan mutilasi.,informasi,Negatif,Positif,Negatif,No Reg
+Nabi melarang menyongsong dagangan (diluar pasar) .,larangan,Positif,Negatif,Positif,No Reg
+Nabi melarang menyongsong dagangan (diluar pasar) .,informasi,Negatif,Positif,Negatif,No Reg
+Nabi melarang menyongsong dagangan (diluar pasar) .,larangan,Positif,Negatif,Positif,No Reg
+Nabi melarang menyongsong dagangan (diluar pasar) .,informasi,Positif,Positif,Negatif,L2
+sebaik-baik jihad (bagi kaum wanita) adalah hajii.,anjuran,Negatif,Negatif,Positif,L2
+Makanlah. Sedang saat itu mereka sedang berihram.,informasi,Positif,Positif,Negatif,L2
+memperlihatkan kepada mereka terbelahnya bulan.',anjuran,Negatif,Negatif,Positif,L2
+Bertakwalah kamu kepada Allah dan bersabarlah.,anjuran,Positif,Negatif,Positif,No Reg
+beliau memerintahkan untuk tetap memakannya.,informasi,Negatif,Positif,Negatif,No Reg
+Adakanlah walimah walau dengan seekor domba.,anjuran,Positif,Negatif,Positif,No Reg
+tidak menolak jika ditawarkan minyak wangi.,informasi,Positif,Positif,Negatif,L2
+dan melarang berpuasa pada hari raya ini.,informasi,Negatif,Positif,Negatif,No Reg
+Nabi pun memerintahkan untuk memakannya.,informasi,Negatif,Positif,Negatif,No Reg
+melarang (jual beli) najasy (penipuan).,informasi,Negatif,Positif,Negatif,No Reg
+Nabi telah melarang uang bayaran zina.,informasi,Negatif,Positif,Negatif,No Reg
+Aku tidak akan makan sambil bersandar.,informasi,Positif,Positif,Negatif,L2
+memerintahkan untuk membunuh anjing.,anjuran,Positif,Negatif,Positif,No Reg
+Makanlah makanan yang ada didepanmu.,informasi,Positif,Positif,Negatif,L2
+"Sebutlah nama Allah, lalu makanlah.",informasi,Negatif,Positif,Negatif,No Reg
+memerintahkan untuk membunuh cecak.,anjuran,Positif,Negatif,Positif,No Reg
+durhaka kepada Allah dan Rasul-Nya.,larangan,Negatif,Negatif,Positif,L2
+Nabi memerintahkan qisas berlaku.,anjuran,Positif,Negatif,Positif,No Reg
+melarang uang bayaran zina.,informasi,Negatif,Positif,Negatif,No Reg
+Bulan terbelah menjadi dua,anjuran,Negatif,Negatif,Positif,L2
+Bulan pernah terbelah.,anjuran,Negatif,Negatif,Positif,L2
+Janganlah kamu marah.,informasi,Negatif,Positif,Negatif,No Reg

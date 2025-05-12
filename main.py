@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, jsonify
 import pickle
 import re
 import math
+import json
+import numpy as np
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 import mysql.connector
@@ -33,9 +35,6 @@ PERAWI_TABLES = [
 ]
 
 # --- Load Model & TF-IDF ---
-with open("models/logistic_regression.pkl", "rb") as f:
-    model = pickle.load(f)
-
 with open("models/sgd_logistic_regression.pkl", "rb") as f:
     model_sgd = pickle.load(f)
 
@@ -72,10 +71,19 @@ def full_preprocess(text):
     tokens = stem_tokens(tokens)
     return " ".join(tokens)
 
-# --- Halaman Utama Gabungan (Navbar, Tabel, Form Prediksi, Hasil) ---
+# --- Halaman Utama ---
 @app.route("/", methods=["GET"])
 def index():
-    selected_perawi = request.args.get("perawi", PERAWI_TABLES[0])  # Default: perawi pertama
+    # Baca file hasil evaluasi
+    try:
+        with open('notebooks/result_evaluation_manual.json', 'r') as f:
+            evaluation_results = json.load(f)
+    except FileNotFoundError:
+        evaluation_results = None
+    except json.JSONDecodeError:
+        evaluation_results = None
+
+    selected_perawi = request.args.get("perawi", PERAWI_TABLES[0])
     if selected_perawi not in PERAWI_TABLES:
         selected_perawi = PERAWI_TABLES[0]
     
@@ -84,7 +92,6 @@ def index():
     per_page = 5
     offset = (page - 1) * per_page
 
-    # Build where clause and params
     where_clause = ""
     params = []
 
@@ -96,13 +103,11 @@ def index():
             where_clause = "WHERE nomor LIKE %s OR arab LIKE %s OR id LIKE %s"
             params.extend([f"%{search_query}%"] * 3)
 
-    # Count total data
     count_query = f"SELECT COUNT(*) as total FROM {selected_perawi} {where_clause}"
     cursor.execute(count_query, params)
     total_hadits = cursor.fetchone()["total"]
     total_pages = math.ceil(total_hadits / per_page)
 
-    # Get paginated data
     if selected_perawi in ["hadits_training", "hadits_testing"]:
         query = f"""
             SELECT hadis, anjuran, larangan, informasi
@@ -121,7 +126,6 @@ def index():
     cursor.execute(query, params + [per_page, offset])
     hadits = cursor.fetchall()
     
-    # Convert string "1"/"0" to integers for the template
     if selected_perawi in ["hadits_training", "hadits_testing"]:
         for hadith in hadits:
             hadith["anjuran"] = int(hadith["anjuran"])
@@ -135,44 +139,94 @@ def index():
                          page=page,
                          total_pages=total_pages,
                          total_hadits=total_hadits,
-                         search_query=search_query)
+                         search_query=search_query,
+                         evaluation_results=evaluation_results)  # Tambahkan ini
 
-
-
+# --- Endpoint Prediksi ---
 @app.route("/predik", methods=["POST"])
 def prediksi():
-    data = request.get_json()
-    input_text = data.get("text", "").strip()
+    try:
+        data = request.get_json()
+        input_text = data.get("text", "").strip()
 
-    # Validasi input kosong
-    if not input_text:
-        return jsonify({"error": "Teks hadis tidak boleh kosong!"}), 400
+        if not input_text:
+            return jsonify({"error": "Teks hadis tidak boleh kosong!"}), 400
 
-    # Preprocessing teks
-    processed_text = full_preprocess(input_text)
+        processed_text = full_preprocess(input_text)
+        text_tfidf = tfidf_vectorizer.transform([processed_text])
 
-    # Transformasi ke bentuk TF-IDF
-    text_tfidf = tfidf_vectorizer.transform([processed_text])
+        # Get predictions
+        prediction = model_sgd.predict(text_tfidf).tolist()[0]
+        
+        # Get probabilities for each class
+        probabilities = {
+            "anjuran": float(model_sgd.estimators_[0].predict_proba(text_tfidf)[0][1]),
+            "larangan": float(model_sgd.estimators_[1].predict_proba(text_tfidf)[0][1]),
+            "informasi": float(model_sgd.estimators_[2].predict_proba(text_tfidf)[0][1])
+        }
 
-    # Prediksi label biner
-    prediction = model_sgd.predict(text_tfidf).tolist()[0]
+        # Get decision function values
+        logits = {
+            "anjuran": float(model_sgd.estimators_[0].decision_function(text_tfidf)[0]),
+            "larangan": float(model_sgd.estimators_[1].decision_function(text_tfidf)[0]),
+            "informasi": float(model_sgd.estimators_[2].decision_function(text_tfidf)[0])
+        }
 
-    # Prediksi probabilitas untuk masing-masing label
-    probabilities = model_sgd.predict_proba(text_tfidf)
+        # Get top features
+        def get_top_features(class_idx, n=5):
+            coef = model_sgd.estimators_[class_idx].coef_[0]
+            top_indices = coef.argsort()[-n:][::-1]
+            feature_names = tfidf_vectorizer.get_feature_names_out()
+            return {feature_names[i]: float(coef[i]) for i in top_indices}
 
-    result = {
-        "anjuran": bool(prediction[0]),
-        "larangan": bool(prediction[1]),
-        "informasi": bool(prediction[2]),
-        "probabilitas": {
-            "anjuran": float(probabilities[0][0][1]),
-            "larangan": float(probabilities[1][0][1]),
-            "informasi": float(probabilities[2][0][1])
-        },
-        "processed_text": processed_text
-    }
+        # Prepare TF-IDF features
+        tfidf_array = text_tfidf.toarray()[0]
+        feature_names = tfidf_vectorizer.get_feature_names_out()
+        tfidf_features = {feature_names[i]: float(tfidf_array[i]) 
+                         for i in tfidf_array.argsort()[-10:][::-1] if tfidf_array[i] > 0}
 
-    return jsonify(result)
+        result = {
+            "success": True,
+            "prediction": {
+                "anjuran": bool(prediction[0]),
+                "larangan": bool(prediction[1]),
+                "informasi": bool(prediction[2])
+            },
+            "probabilities": probabilities,
+            "logits": logits,
+            "processed_text": processed_text,
+            "tfidf_features": tfidf_features,
+            "top_coefficients": {
+                "anjuran": get_top_features(0),
+                "larangan": get_top_features(1),
+                "informasi": get_top_features(2)
+            }
+        }
+
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "error": f"Terjadi kesalahan: {str(e)}"
+        }), 500
+
+# --- Endpoint Model Details ---
+@app.route("/model-details", methods=["GET"])
+def get_model_details():
+    feature_names = tfidf_vectorizer.get_feature_names_out()
+    
+    def get_top_coefficients(class_idx, n=10):
+        coef = model_sgd.coef_[class_idx]
+        top_indices = coef.argsort()[-n:][::-1]
+        return {feature_names[i]: float(coef[i]) for i in top_indices}
+    
+    return jsonify({
+        "anjuran": get_top_coefficients(0),
+        "larangan": get_top_coefficients(1),
+        "informasi": get_top_coefficients(2),
+        "feature_names": feature_names.tolist()
+    })
 
 if __name__ == "__main__":
     app.run(debug=True)

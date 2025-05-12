@@ -1,0 +1,33 @@
+{
+    "anjuran": {
+        "true_positive": 100,
+        "true_negative": 1090,
+        "false_positive": 87,
+        "false_negative": 123,
+        "accuracy": 0.85,
+        "precision": 0.5347593582887701,
+        "recall": 0.4484304932735426,
+        "f1_score": 0.4878048780487805
+    },
+    "larangan": {
+        "true_positive": 140,
+        "true_negative": 1192,
+        "false_positive": 26,
+        "false_negative": 42,
+        "accuracy": 0.9514285714285714,
+        "precision": 0.8433734939759037,
+        "recall": 0.7692307692307693,
+        "f1_score": 0.8045977011494253
+    },
+    "informasi": {
+        "true_positive": 1241,
+        "true_negative": 34,
+        "false_positive": 104,
+        "false_negative": 21,
+        "accuracy": 0.9107142857142857,
+        "precision": 0.9226765799256506,
+        "recall": 0.9833597464342314,
+        "f1_score": 0.9520521672420406
+    },
+    "overall_accuracy": 0.9040476190476191
+}

@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hadits Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
         }
+        .flex.justify-between.items-center {
+    align-items: center;
+}
         .arabic-text {
             font-family: 'Amiri', serif;
             font-size: 1.2rem;
@@ -30,12 +34,38 @@
         .prediction-badge:hover {
             transform: scale(1.05);
         }
+        .coefficient-bar {
+            height: 4px;
+            background: linear-gradient(90deg, #e0e7ff 0%, #6366f1 100%);
+            border-radius: 2px;
+            margin-top: 2px;
+        }
+        .feature-badge {
+            transition: all 0.2s ease;
+        }
+        .feature-badge:hover {
+            transform: translateX(3px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .feature-card {
+            animation: fadeIn 0.3s ease forwards;
+            opacity: 0;
+        }
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
     <!-- Header Section -->
     <header class="bg-gradient-to-r from-green-600 to-emerald-700 text-white shadow-lg">
-        <div class="container mx-auto px-6 py-8">
+        <div class="container mx-auto px-2 py-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0">
                     <h1 class="text-3xl font-bold">Aplikasi Klasifikasi Teks Hadits</h1>
@@ -43,14 +73,14 @@
                 </div>
                 <div class="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
                     <p class="text-sm">Total Hadits: <span class="font-semibold">45.103</span></p>
-                    <p class="text-sm">Model Akurasi: <span class="font-semibold">76.9%</span></p>
+                    <p class="text-sm">Model Akurasi: <span class="font-semibold">90,4%</span></p>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-6 py-8 -mt-10">
+    <main class="container mx-auto px-2 py-8 -mt-10">
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-0">
                 <!-- Sidebar Filters -->
@@ -93,95 +123,201 @@
                             </button>
                         </form>
 
-<div class="bg-white p-6 rounded-lg border border-gray-200 shadow-md mb-6">
-    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-        </svg>
-        Kategori Hadits
-    </h3>
-    <div class="space-y-3">
-        <div class="flex items-center p-2 rounded-md hover:bg-gray-50 transition-colors">
-            <div class="w-4 h-4 rounded-full bg-green-500 mr-3 flex-shrink-0"></div>
-            <span class="text-sm font-medium text-gray-700">Anjuran</span>
-        </div>
-        <div class="flex items-center p-2 rounded-md hover:bg-gray-50 transition-colors">
-            <div class="w-4 h-4 rounded-full bg-red-500 mr-3 flex-shrink-0"></div>
-            <span class="text-sm font-medium text-gray-700">Larangan</span>
-        </div>
-        <div class="flex items-center p-2 rounded-md hover:bg-gray-50 transition-colors">
-            <div class="w-4 h-4 rounded-full bg-blue-500 mr-3 flex-shrink-0"></div>
-            <span class="text-sm font-medium text-gray-700">Informasi</span>
-        </div>
-    </div>
-</div>
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-md mb-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                </svg>
+                                Kategori Hadits
+                            </h3>
+                            <div class="space-y-3 flex">
+                                <div class="flex items-center p-2 rounded-md hover:bg-gray-50 transition-colors">
+                                    <div class="w-4 h-4 rounded-full bg-green-500 mr-3 flex-shrink-0"></div>
+                                    <span class="text-sm font-medium text-gray-700">Anjuran</span>
+                                </div>
+                                <div class="flex items-center p-2 rounded-md hover:bg-gray-50 transition-colors">
+                                    <div class="w-4 h-4 rounded-full bg-red-500 mr-3 flex-shrink-0"></div>
+                                    <span class="text-sm font-medium text-gray-700">Larangan</span>
+                                </div>
+                                <div class="flex items-center p-2 rounded-md hover:bg-gray-50 transition-colors">
+                                    <div class="w-4 h-4 rounded-full bg-blue-500 mr-3 flex-shrink-0"></div>
+                                    <span class="text-sm font-medium text-gray-700">Informasi</span>
+                                </div>
+                            </div>
+                        </div>
 
-<div class="bg-white p-6 rounded-lg border border-gray-200 shadow-md">
+                        <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-md">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                                </svg>
+                                Tentang Dataset Hadits
+                            </h3>
+                            <div class="space-y-4 text-gray-700">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm md:text-base">
+                                            Penelitian ini menggunakan dataset terjemahan Hadis Bukhari dalam Bahasa Indonesia yang tersedia di 
+                                            <a href="https://dataverse.telkomuniversity.ac.id/dataset.xhtml?persistentId=doi:10.34820/FK2/HDQ1OJ" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium underline transition-colors">
+                                                Dataverse Telkom University
+                                            </a>.
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm md:text-base">
+                                            Dataset berjudul <span class="font-medium bg-indigo-50 px-2 py-1 rounded">"Indonesian Translation of the Hadith of Bukhari (Multi-label)"</span> disusun oleh Adiwijaya dan Al-Faraby (2023), memuat teks terjemahan dengan klasifikasi ke dalam tiga kategori utama.
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3">
+                                        <p class="text-sm md:text-base ">
+                                            Dataset lengkap juga tersedia di 
+                                            <a href="https://www.kaggle.com/datasets/afrizalm/hadis" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium underline transition-colors">
+                                                Kaggle - Hadis Dataset by afrizalm
+                                            </a>.
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h4 class="text-sm font-medium text-indigo-800">Proses Validasi</h4>
+                                            <p class="mt-1 text-sm text-indigo-700">
+                                                Kategorisasi dilakukan secara manual dan telah divalidasi oleh ahli untuk memastikan keakuratan label pada setiap hadits.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+<div class="bg-white p-6 rounded-lg border border-gray-200 shadow-md mt-6">
     <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+            <path fill-rule="evenodd" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" clip-rule="evenodd" />
         </svg>
-        Tentang Dataset Hadits
+        Hasil Evaluasi Model Klasifikasi
     </h3>
-    <div class="space-y-4 text-gray-700">
-        <div class="flex">
-            <div class="flex-shrink-0 mt-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                </svg>
-            </div>
-            <div class="ml-3">
-                <p class="text-sm md:text-base">
-                    Penelitian ini menggunakan dataset terjemahan Hadis Bukhari dalam Bahasa Indonesia yang tersedia di 
-                    <a href="https://dataverse.telkomuniversity.ac.id/dataset.xhtml?persistentId=doi:10.34820/FK2/HDQ1OJ" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium underline transition-colors">
-                        Dataverse Telkom University
-                    </a>.
-                </p>
-            </div>
-        </div>
-        
-        <div class="flex">
-            <div class="flex-shrink-0 mt-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                </svg>
-            </div>
-            <div class="ml-3">
-                <p class="text-sm md:text-base">
-                    Dataset berjudul <span class="font-medium bg-indigo-50 px-2 py-1 rounded">"Indonesian Translation of the Hadith of Bukhari (Multi-label)"</span> disusun oleh Adiwijaya dan Al-Faraby (2023), memuat teks terjemahan dengan klasifikasi ke dalam tiga kategori utama.
-                </p>
-            </div>
-        </div>
-        
-        <div class="flex">
-            <div class="flex-shrink-0 mt-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                </svg>
-            </div>
-            <div class="ml-3">
-                <p class="text-sm md:text-base ">
-                    Dataset lengkap juga tersedia di 
-                    <a href="https://www.kaggle.com/datasets/afrizalm/hadis" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium underline transition-colors">
-                        Kaggle - Hadis Dataset by afrizalm
-                    </a>.
-                </p>
-            </div>
-        </div>
-        
-        <div class="mt-4 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
-            <div class="flex">
-                <div class="flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+    
+    {% if evaluation_results %}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <!-- Card Akurasi Keseluruhan -->
+        <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-100">
+            <div class="flex items-center">
+                <div class="p-2 rounded-full bg-emerald-100 mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                     </svg>
                 </div>
-                <div class="ml-3">
-                    <h4 class="text-sm font-medium text-indigo-800">Proses Validasi</h4>
-                    <p class="mt-1 text-sm text-indigo-700">
-                        Kategorisasi dilakukan secara manual dan telah divalidasi oleh ahli untuk memastikan keakuratan label pada setiap hadits.
-                    </p>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Akurasi Keseluruhan</p>
+                    <p class="text-2xl font-bold text-emerald-700">{{ "%.2f"|format(evaluation_results['overall_accuracy'] * 100) }}%</p>
                 </div>
+            </div>
+        </div>
+        
+        <!-- Card Total Data Testing -->
+        <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+            <div class="flex items-center">
+                <div class="p-2 rounded-full bg-blue-100 mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Total Data Testing</p>
+                    <p class="text-2xl font-bold text-blue-700">{{ evaluation_results.get('test_data_count', '1400') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tabel Hasil Evaluasi per Label -->
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Label</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Akurasi</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Presisi</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recall</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">F1-Score</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for label in ['anjuran', 'larangan', 'informasi'] %}
+                {% if label in evaluation_results %}
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 h-4 w-4 rounded-full 
+                                {% if label == 'anjuran' %}bg-green-500
+                                {% elif label == 'larangan' %}bg-red-500
+                                {% else %}bg-blue-500{% endif %} mr-2">
+                            </div>
+                            <div class="text-sm font-medium text-gray-900 capitalize">{{ label }}</div>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ "%.2f"|format(evaluation_results[label]['accuracy'] * 100) }}%</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ "%.2f"|format(evaluation_results[label]['precision'] * 100) }}%</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ "%.2f"|format(evaluation_results[label]['recall'] * 100) }}%</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ "%.2f"|format(evaluation_results[label]['f1_score'] * 100) }}%</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="bg-red-50 p-4 rounded-lg border border-red-200">
+        <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
+            <p class="text-red-600">Data evaluasi tidak tersedia. Silakan jalankan evaluasi model terlebih dahulu.</p>
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-100">
+        <div class="flex">
+            <div class="flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="ml-3">
+                <h4 class="text-sm font-medium text-yellow-800">Catatan Evaluasi Model</h4>
+                <p class="mt-1 text-sm text-yellow-700">
+                    Model klasifikasi multi-label ini menggunakan algoritma SGD Logistic Regression dengan ekstraksi fitur TF-IDF. 
+                    Evaluasi dilakukan pada data testing yang terpisah dari data training.
+                </p>
             </div>
         </div>
     </div>
@@ -330,25 +466,47 @@
                 </h2>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="lg:col-span-2">
-                        <form id="prediksiForm" class="space-y-4">
-                            <div>
-                                <label for="text" class="block text-sm font-medium text-gray-700 mb-1">Masukkan Teks Hadits</label>
-                                <textarea name="text" id="text" rows="6" 
-                                    class="focus:ring-emerald-500 focus:border-emerald-500 block w-full px-4 py-3 sm:text-sm border border-gray-300 rounded-lg" 
-                                    placeholder="Ketik atau tempel teks hadits di sini..."></textarea>
-                            </div>
-                            <div class="flex justify-end">
-                                <button type="submit" 
-                                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                    </svg>
-                                    Analisis Teks
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                   
+<div class="lg:col-span-2">
+    <form id="prediksiForm" class="space-y-4">
+        <div>
+            <div class="flex justify-between items-center mb-1">
+                <label for="text" class="block text-sm font-medium text-gray-700">Masukkan Teks Hadits</label>
+                <div class="flex space-x-2">
+                    <button type="button" onclick="pasteToTextarea()" 
+                        class="text-sm text-emerald-600 hover:text-emerald-800 flex items-center"
+                        title="Tempel teks">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                        </svg>
+                        Tempel
+                    </button>
+                    <button type="button" onclick="clearTextarea()"
+                        class="text-sm text-red-600 hover:text-red-800 flex items-center"
+                        title="Hapus teks">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        Hapus
+                    </button>
+                </div>
+            </div>
+            <textarea name="text" id="text" rows="6" 
+                class="focus:ring-emerald-500 focus:border-emerald-500 block w-full px-4 py-3 sm:text-sm border border-gray-300 rounded-lg" 
+                placeholder="Ketik atau tempel teks hadits di sini..."></textarea>
+        </div>
+        <div class="flex justify-end">
+            <button type="submit" 
+                class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+                Analisis Teks
+            </button>
+        </div>
+    </form>
+</div>
+
                     
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                         <h3 class="text-sm font-medium text-gray-900 mb-3">Panduan Analisis</h3>
@@ -400,6 +558,94 @@
                         <h4 class="text-sm font-medium text-gray-700 mb-2">Teks Setelah Preprocessing</h4>
                         <p class="text-gray-600 text-sm" id="hasilPreprocessing">-</p>
                     </div>
+
+                    <!-- TF-IDF and Model Visualization Section -->
+                    <div class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- TF-IDF Features -->
+                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                            <h4 class="text-sm font-medium text-gray-700 mb-2">Top TF-IDF Features</h4>
+                            <div class="space-y-2 text-sm" id="topTfidfFeatures">
+                                <p class="text-gray-400">Fitur akan muncul setelah analisis...</p>
+                            </div>
+                        </div>
+
+                        <!-- Model Coefficients -->
+                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                            <h4 class="text-sm font-medium text-gray-700 mb-2">Feature Importance</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1">
+                                        <span class="text-green-700 font-medium">Anjuran</span>
+                                        <span id="topAnjuranFeature">-</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div id="anjuranBar" class="bg-green-600 h-1.5 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1">
+                                        <span class="text-red-700 font-medium">Larangan</span>
+                                        <span id="topLaranganFeature">-</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div id="laranganBar" class="bg-red-600 h-1.5 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs mb-1">
+                                        <span class="text-blue-700 font-medium">Informasi</span>
+                                        <span id="topInformasiFeature">-</span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div id="informasiBar" class="bg-blue-600 h-1.5 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+<!-- Sigmoid Curve -->
+<div class="mt-6 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+    <h4 class="text-sm font-medium text-gray-700 mb-3">Logistic Regression Sigmoid Curve</h4>
+    <div class="chart-container" style="position: relative; height: 300px; width: 100%;">
+        <canvas id="sigmoidChart"></canvas>
+    </div>
+    <p class="text-xs text-gray-500 mt-2 text-center">
+        Nilai z (logit): <span id="logitValue" class="font-medium">0</span> → 
+        Probabilitas: <span id="sigmoidProb" class="font-medium">0.5</span>
+    </p>
+</div>
+
+<!-- Decision Boundary -->
+<!-- <div class="mt-4 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+    <h4 class="text-sm font-medium text-gray-700 mb-3">Decision Boundary</h4>
+    <div class="chart-container" style="position: relative; height: 300px; width: 100%;">
+        <canvas id="decisionBoundaryChart"></canvas>
+    </div>
+    <div class="flex justify-center mt-2 space-x-4 text-xs">
+        <div class="flex items-center">
+            <div class="w-3 h-3 rounded-full bg-green-500 mr-1"></div>
+            <span>Anjuran</span>
+        </div>
+        <div class="flex items-center">
+            <div class="w-3 h-3 rounded-full bg-red-500 mr-1"></div>
+            <span>Larangan</span>
+        </div>
+        <div class="flex items-center">
+            <div class="w-3 h-3 rounded-full bg-blue-500 mr-1"></div>
+            <span>Informasi</span>
+        </div>
+    </div>
+</div> -->
+                    <!-- Decision Explanation -->
+                    <div class="mt-4 bg-indigo-50 p-3 rounded-lg border border-indigo-100 text-sm">
+                        <div class="flex">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <p id="decisionExplanation" class="text-indigo-800">Sistem akan menampilkan penjelasan keputusan setelah analisis...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -435,6 +681,8 @@
     </footer>
 
     <!-- Script AJAX -->
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2"></script>
     <script>
 document.getElementById("prediksiForm").addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -464,21 +712,39 @@ document.getElementById("prediksiForm").addEventListener("submit", async functio
 
         const data = await response.json();
 
+        if (!data.success) {
+            throw new Error(data.error || "Terjadi kesalahan tidak diketahui");
+        }
+
+        // Show results section
         document.getElementById("hasilPrediksi").classList.remove("hidden");
 
-        // Update results
-        document.getElementById("anjuranResult").textContent = data.anjuran ? "Ya" : "Tidak";
-        document.getElementById("anjuranProb").textContent = `Probabilitas: ${(data.probabilitas.anjuran * 100).toFixed(2)}%`;
-        document.getElementById("laranganResult").textContent = data.larangan ? "Ya" : "Tidak";
-        document.getElementById("laranganProb").textContent = `Probabilitas: ${(data.probabilitas.larangan * 100).toFixed(2)}%`;
-        document.getElementById("informasiResult").textContent = data.informasi ? "Ya" : "Tidak";
-        document.getElementById("informasiProb").textContent = `Probabilitas: ${(data.probabilitas.informasi * 100).toFixed(2)}%`;
+        // Update prediction results
+        updatePredictionResults(data);
+        
+        // Update processed text
         document.getElementById("hasilPreprocessing").textContent = data.processed_text;
 
+        // Update TF-IDF features
+        updateTfidfFeatures(data.tfidf_features);
+
+        // Update progress bars
+        animateProgressBar('anjuranBar', data.probabilities.anjuran);
+        animateProgressBar('laranganBar', data.probabilities.larangan);
+        animateProgressBar('informasiBar', data.probabilities.informasi);
+
+        // Render charts
+        renderSigmoidChart(data.logits);
+        
+        // Update decision explanation
+        updateDecisionExplanation(data.probabilities);
+
+        // Scroll to results
         document.getElementById("hasilPrediksi").scrollIntoView({ behavior: "smooth" });
+
     } catch (error) {
         console.error("Error:", error);
-        alert("Terjadi kesalahan saat menganalisis teks. Silakan coba lagi.");
+        alert(error.message || "Terjadi kesalahan saat menganalisis teks. Silakan coba lagi.");
     } finally {
         // Reset button
         submitBtn.disabled = false;
@@ -486,28 +752,260 @@ document.getElementById("prediksiForm").addEventListener("submit", async functio
     }
 });
 
+// Chart instances
+let sigmoidChart = null;
+let decisionBoundaryChart = null;
 
-        function copyToClipboard(button, text) {
-            navigator.clipboard.writeText(text).then(function() {
-                // Change icon temporarily to indicate success
-                const originalHTML = button.innerHTML;
-                button.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                `;
-                button.title = "Tersalin!";
-                
-                // Revert after 2 seconds
-                setTimeout(function() {
-                    button.innerHTML = originalHTML;
-                    button.title = "Salin teks";
-                }, 2000);
-            }).catch(function(err) {
-                console.error('Gagal menyalin teks: ', err);
-                alert("Gagal menyalin teks");
-            });
+function updatePredictionResults(data) {
+    document.getElementById("anjuranResult").textContent = data.prediction.anjuran ? "Ya" : "Tidak";
+    document.getElementById("anjuranProb").textContent = `Probabilitas: ${(data.probabilities.anjuran * 100).toFixed(2)}%`;
+    document.getElementById("laranganResult").textContent = data.prediction.larangan ? "Ya" : "Tidak";
+    document.getElementById("laranganProb").textContent = `Probabilitas: ${(data.probabilities.larangan * 100).toFixed(2)}%`;
+    document.getElementById("informasiResult").textContent = data.prediction.informasi ? "Ya" : "Tidak";
+    document.getElementById("informasiProb").textContent = `Probabilitas: ${(data.probabilities.informasi * 100).toFixed(2)}%`;
+}
+
+function updateTfidfFeatures(features) {
+    const tfidfContainer = document.getElementById("topTfidfFeatures");
+    tfidfContainer.innerHTML = '';
+
+    // 1. Konversi object ke array dan urutkan berdasarkan score (descending)
+    const sortedFeatures = Object.entries(features)
+        .sort((a, b) => b[1] - a[1]); // b[1] - a[1] untuk descending
+
+    // 2. Loop melalui fitur yang sudah diurutkan
+    sortedFeatures.forEach(([feature, score]) => {
+        const featureElement = document.createElement("div");
+        featureElement.className = "feature-card flex justify-between py-1 border-b border-gray-100";
+        featureElement.innerHTML = `
+            <span class="font-mono text-xs">${feature}</span>
+            <span class="text-purple-600 font-medium">${score.toFixed(4)}</span>
+        `;
+        tfidfContainer.appendChild(featureElement);
+    });
+}
+function animateProgressBar(elementId, value) {
+    const element = document.getElementById(elementId);
+    let width = 0;
+    const targetWidth = value * 100;
+    const interval = setInterval(() => {
+        if (width >= targetWidth) {
+            clearInterval(interval);
+        } else {
+            width++;
+            element.style.width = width + '%';
         }
+    }, 10);
+}
+
+function renderSigmoidChart(logits) {
+    const ctx = document.getElementById('sigmoidChart').getContext('2d');
+    
+    // Destroy previous chart if it exists
+    if (sigmoidChart) {
+        try {
+            sigmoidChart.destroy();
+        } catch (e) {
+            console.error("Error destroying sigmoid chart:", e);
+        }
+        sigmoidChart = null;
+    }
+
+    // Generate data for sigmoid curve
+    const labels = Array.from({length: 100}, (_, i) => -6 + (i * 0.12));
+    const sigmoid = x => 1 / (1 + Math.exp(-x));
+
+    try {
+        sigmoidChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Sigmoid Function',
+                        data: labels.map(x => sigmoid(x)),
+                        borderColor: '#6366f1',
+                        borderWidth: 2,
+                        fill: false
+                    },
+                    {
+                        label: 'Threshold (0.5)',
+                        data: labels.map(() => 0.5),
+                        borderColor: '#ef4444',
+                        borderDash: [5, 5],
+                        borderWidth: 1,
+                        pointRadius: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `P = ${sigmoid(context.parsed.x).toFixed(4)}`;
+                            }
+                        }
+                    },
+                    annotation: {
+                        annotations: {
+                            line1: {
+                                type: 'line',
+                                yMin: 0,
+                                yMax: 1,
+                                xMin: 0,
+                                xMax: 0,
+                                borderColor: '#6b7280',
+                                borderWidth: 1,
+                                label: {
+                                    content: 'z=0',
+                                    enabled: true,
+                                    position: 'top'
+                                }
+                            },
+                            line2: {
+                                type: 'line',
+                                yMin: 0.5,
+                                yMax: 0.5,
+                                xMin: -6,
+                                xMax: 6,
+                                borderColor: '#ef4444',
+                                borderWidth: 1,
+                                borderDash: [5, 5],
+                                label: {
+                                    content: 'Threshold',
+                                    enabled: true,
+                                    position: 'right'
+                                }
+                            },
+                            line3: {
+                                type: 'line',
+                                xMin: logits.anjuran,
+                                xMax: logits.anjuran,
+                                borderColor: '#10b981',
+                                borderWidth: 2,
+                                label: {
+                                    content: 'Anjuran',
+                                    enabled: true,
+                                    position: 'top'
+                                }
+                            },
+                            line4: {
+                                type: 'line',
+                                xMin: logits.larangan,
+                                xMax: logits.larangan,
+                                borderColor: '#ef4444',
+                                borderWidth: 2,
+                                label: {
+                                    content: 'Larangan',
+                                    enabled: true,
+                                    position: 'top'
+                                }
+                            },
+                            line5: {
+                                type: 'line',
+                                xMin: logits.informasi,
+                                xMax: logits.informasi,
+                                borderColor: '#3b82f6',
+                                borderWidth: 2,
+                                label: {
+                                    content: 'Informasi',
+                                    enabled: true,
+                                    position: 'top'
+                                }
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'z (logit)'
+                        },
+                        min: -6,
+                        max: 6
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Probability'
+                        },
+                        min: 0,
+                        max: 1
+                    }
+                }
+            }
+        });
+    } catch (e) {
+        console.error("Error creating sigmoid chart:", e);
+    }
+
+    // Update logit and probability values
+    document.getElementById('logitValue').textContent = 
+        `Anjuran: ${logits.anjuran.toFixed(2)}, Larangan: ${logits.larangan.toFixed(2)}, Informasi: ${logits.informasi.toFixed(2)}`;
+    document.getElementById('sigmoidProb').textContent = 
+        `Anjuran: ${sigmoid(logits.anjuran).toFixed(4)}, Larangan: ${sigmoid(logits.larangan).toFixed(4)}, Informasi: ${sigmoid(logits.informasi).toFixed(4)}`;
+}
+
+function updateDecisionExplanation(probabilities) {
+    const dominantClass = Object.entries(probabilities).reduce((a, b) => a[1] > b[1] ? a : b)[0];
+    const explanations = {
+        anjuran: "Teks mengandung kata-kata yang umum ditemukan dalam hadits berisi anjuran",
+        larangan: "Teks memiliki karakteristik kosakata yang khas untuk hadits larangan", 
+        informasi: "Struktur teks sesuai dengan pola hadits informatif"
+    };
+    
+    document.getElementById('decisionExplanation').innerHTML = `
+        Klasifikasi cenderung <strong>${dominantClass}</strong> (${(probabilities[dominantClass]*100).toFixed(1)}%) 
+        karena ${explanations[dominantClass]}.
+    `;
+}
+
+function copyToClipboard(button, text) {
+    navigator.clipboard.writeText(text).then(function() {
+        // Change icon temporarily to indicate success
+        const originalHTML = button.innerHTML;
+        button.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+        `;
+        button.title = "Tersalin!";
+        
+        // Revert after 2 seconds
+        setTimeout(function() {
+            button.innerHTML = originalHTML;
+            button.title = "Salin teks";
+        }, 2000);
+    }).catch(function(err) {
+        console.error('Gagal menyalin teks: ', err);
+        alert("Gagal menyalin teks");
+    });
+}
+
+function pasteToTextarea() {
+    const textarea = document.getElementById('text');
+    textarea.focus();
+    
+    navigator.clipboard.readText()
+        .then(text => {
+            textarea.value = text;
+        })
+        .catch(err => {
+            console.error('Failed to read clipboard contents: ', err);
+            alert('Gagal membaca clipboard. Pastikan Anda telah memberikan izin akses clipboard.');
+        });
+}
+
+function clearTextarea() {
+    document.getElementById('text').value = '';
+}
     </script>
 </body>
 </html>
