@@ -38,6 +38,19 @@ PERAWI_TABLES = [
 with open("models/sgd_logistic_regression.pkl", "rb") as f:
     model_sgd = pickle.load(f)
 
+with open("models/LR_manual_jurnal.pkl", "rb") as f:
+    manual_model = pickle.load(f)  # {'anjuran': (W, b), 'larangan': ..., ...}
+
+# Fungsi sigmoid dan dot product untuk prediksi manual
+def sigmoid(x):
+    try:
+        return 1 / (1 + math.exp(-x))
+    except OverflowError:
+        return 0.0 if x < 0 else 1.0
+
+def dot(A, B):
+    return sum(a * b for a, b in zip(A, B))
+
 with open("data/tfidf/tfidf_vectorizer.pkl", "rb") as f:
     tfidf_vectorizer = pickle.load(f)
 
@@ -143,6 +156,73 @@ def index():
                          evaluation_results=evaluation_results)  # Tambahkan ini
 
 # --- Endpoint Prediksi ---
+# @app.route("/predik", methods=["POST"])
+# def prediksi():
+#     try:
+#         data = request.get_json()
+#         input_text = data.get("text", "").strip()
+
+#         if not input_text:
+#             return jsonify({"error": "Teks hadis tidak boleh kosong!"}), 400
+
+#         processed_text = full_preprocess(input_text)
+#         text_tfidf = tfidf_vectorizer.transform([processed_text])
+
+#         # Get predictions
+#         prediction = model_sgd.predict(text_tfidf).tolist()[0]
+        
+#         # Get probabilities for each class
+#         probabilities = {
+#             "anjuran": float(model_sgd.estimators_[0].predict_proba(text_tfidf)[0][1]),
+#             "larangan": float(model_sgd.estimators_[1].predict_proba(text_tfidf)[0][1]),
+#             "informasi": float(model_sgd.estimators_[2].predict_proba(text_tfidf)[0][1])
+#         }
+
+#         # Get decision function values
+#         logits = {
+#             "anjuran": float(model_sgd.estimators_[0].decision_function(text_tfidf)[0]),
+#             "larangan": float(model_sgd.estimators_[1].decision_function(text_tfidf)[0]),
+#             "informasi": float(model_sgd.estimators_[2].decision_function(text_tfidf)[0])
+#         }
+
+#         # Get top features
+#         def get_top_features(class_idx, n=5):
+#             coef = model_sgd.estimators_[class_idx].coef_[0]
+#             top_indices = coef.argsort()[-n:][::-1]
+#             feature_names = tfidf_vectorizer.get_feature_names_out()
+#             return {feature_names[i]: float(coef[i]) for i in top_indices}
+
+#         # Prepare TF-IDF features
+#         tfidf_array = text_tfidf.toarray()[0]
+#         feature_names = tfidf_vectorizer.get_feature_names_out()
+#         tfidf_features = {feature_names[i]: float(tfidf_array[i]) 
+#                          for i in tfidf_array.argsort()[-10:][::-1] if tfidf_array[i] > 0}
+
+#         result = {
+#             "success": True,
+#             "prediction": {
+#                 "anjuran": bool(prediction[0]),
+#                 "larangan": bool(prediction[1]),
+#                 "informasi": bool(prediction[2])
+#             },
+#             "probabilities": probabilities,
+#             "logits": logits,
+#             "processed_text": processed_text,
+#             "tfidf_features": tfidf_features,
+#             "top_coefficients": {
+#                 "anjuran": get_top_features(0),
+#                 "larangan": get_top_features(1),
+#                 "informasi": get_top_features(2)
+#             }
+#         }
+
+#         return jsonify(result)
+
+#     except Exception as e:
+#         return jsonify({
+#             "success": False,
+#             "error": f"Terjadi kesalahan: {str(e)}"
+#         }), 500
 @app.route("/predik", methods=["POST"])
 def prediksi():
     try:
@@ -153,54 +233,37 @@ def prediksi():
             return jsonify({"error": "Teks hadis tidak boleh kosong!"}), 400
 
         processed_text = full_preprocess(input_text)
-        text_tfidf = tfidf_vectorizer.transform([processed_text])
+        text_tfidf = tfidf_vectorizer.transform([processed_text]).toarray()[0]
 
-        # Get predictions
-        prediction = model_sgd.predict(text_tfidf).tolist()[0]
-        
-        # Get probabilities for each class
-        probabilities = {
-            "anjuran": float(model_sgd.estimators_[0].predict_proba(text_tfidf)[0][1]),
-            "larangan": float(model_sgd.estimators_[1].predict_proba(text_tfidf)[0][1]),
-            "informasi": float(model_sgd.estimators_[2].predict_proba(text_tfidf)[0][1])
-        }
+        prediction = {}
+        probabilities = {}
+        logits = {}
 
-        # Get decision function values
-        logits = {
-            "anjuran": float(model_sgd.estimators_[0].decision_function(text_tfidf)[0]),
-            "larangan": float(model_sgd.estimators_[1].decision_function(text_tfidf)[0]),
-            "informasi": float(model_sgd.estimators_[2].decision_function(text_tfidf)[0])
-        }
+        for label in ["anjuran", "larangan", "informasi"]:
+            W, b = manual_model[label]
+            z = dot(text_tfidf, W) + b
+            prob = sigmoid(z)
+            pred = 1 if prob >= 0.5 else 0
 
-        # Get top features
-        def get_top_features(class_idx, n=5):
-            coef = model_sgd.estimators_[class_idx].coef_[0]
-            top_indices = coef.argsort()[-n:][::-1]
-            feature_names = tfidf_vectorizer.get_feature_names_out()
-            return {feature_names[i]: float(coef[i]) for i in top_indices}
+            prediction[label] = bool(pred)
+            probabilities[label] = float(prob)
+            logits[label] = float(z)
 
-        # Prepare TF-IDF features
-        tfidf_array = text_tfidf.toarray()[0]
+        # TF-IDF Features
         feature_names = tfidf_vectorizer.get_feature_names_out()
-        tfidf_features = {feature_names[i]: float(tfidf_array[i]) 
-                         for i in tfidf_array.argsort()[-10:][::-1] if tfidf_array[i] > 0}
+        tfidf_features = {
+            feature_names[i]: float(text_tfidf[i])
+            for i in np.argsort(text_tfidf)[-10:][::-1] if text_tfidf[i] > 0
+        }
 
         result = {
             "success": True,
-            "prediction": {
-                "anjuran": bool(prediction[0]),
-                "larangan": bool(prediction[1]),
-                "informasi": bool(prediction[2])
-            },
+            "prediction": prediction,
             "probabilities": probabilities,
             "logits": logits,
             "processed_text": processed_text,
             "tfidf_features": tfidf_features,
-            "top_coefficients": {
-                "anjuran": get_top_features(0),
-                "larangan": get_top_features(1),
-                "informasi": get_top_features(2)
-            }
+            "top_coefficients": None  # Tidak tersedia karena tidak ada estimators_
         }
 
         return jsonify(result)
